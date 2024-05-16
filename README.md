@@ -10,10 +10,6 @@ t.
 
 ### Running the pre-trained demo locally
 
-```bash
-docker pull janjones/awe-demo
-docker run --rm -it -p 3000:3000 janjones/awe-demo
-```
 
 Open a web browser and navigate to <http://localhost:3000/>.
 
