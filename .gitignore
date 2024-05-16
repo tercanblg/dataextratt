@@ -1,0 +1,20 @@
+# Python compilation.
+__pycache__/
+
+# Python virtual environment.
+/.venv/
+
+# Jupyter.
+.ipynb_checkpoints/
+.Trash-0/
+
+# Data downloaded by `dodo.py` and cached by Python and Node.js code.
+# See `DATA_DIR` in `constants.py` and `constants.ts`.
+/data
+
+# PyTorch machine learning. See `LOG_DIR` in `gym.py`.
+/logs
+
+# Node.js
+node_modules/
+.pnpm-store/

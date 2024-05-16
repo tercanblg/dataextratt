@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    // `dom` is needed for Puppeteer `page.evaluate` to type-check.
+    "lib": ["es2021", "dom"],
+    "module": "commonjs",
+    "target": "es2021",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  }
+}

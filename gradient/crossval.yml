@@ -1,0 +1,43 @@
+# See https://docs.paperspace.com/gradient/workflows/.
+
+defaults:
+  resources:
+    instance-type: C4
+
+inputs:
+  params:
+    type: string
+
+jobs:
+  CloneRepo:
+    outputs:
+      repo:
+        type: volume
+    uses: git-checkout@v1
+    with:
+      url: https://github.com/jjonescz/awe
+
+  CrossValidation:
+    resources:
+      # See https://docs.paperspace.com/gradient/machines/.
+      instance-type: P4000
+    needs:
+      - CloneRepo
+    inputs:
+      repo: CloneRepo.outputs.repo
+      params: workflow.inputs.params
+    uses: script@v1
+    with:
+      script: |-
+        mkdir -p /storage/awe/src
+        cp -R /inputs/repo/awe /storage/awe/src/awe
+        cd /storage/awe/src
+        mkdir -p data
+        echo "$(cat /inputs/params)" > data/params.json
+        cat data/params.json
+        date
+        python -m awe.training.crossval || echo "Failed"
+        pip install -q -U gradient
+        gradient models upload logs --name awe-logs --modelType Custom --projectId $PROJECT_ID
+        date
+      image: janjones/awe-data
